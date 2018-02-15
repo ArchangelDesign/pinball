@@ -1,5 +1,7 @@
 package com.toreforge;
 
+import com.toreforge.exception.BoardLoaderException;
+import com.toreforge.exception.BoardNotLoadedException;
 import sun.jvm.hotspot.utilities.Assert;
 
 import java.awt.*;
@@ -35,8 +37,16 @@ public class Board {
      */
     private Vector currentVector;
 
-    public void loadBoard() throws Exception {
+    /**
+     * Loads board using BoardLoader which loads
+     * all the lines of the file into a hash map
+     * which is used by this method to build a board
+     *
+     * @throws Exception in case of I/O errors or invalid input
+     */
+    public void loadBoard() throws IOException, BoardLoaderException {
         BoardLoader loader = new BoardLoader("input.txt");
+        // load vector
         currentVector = new Vector(
                 getVectorX(loader.getLine(0)),
                 getVectorY(loader.getLine(0))
@@ -46,7 +56,9 @@ public class Board {
         boardSize = new Point(columns,loader.getLineCount() - 1);
 
         for (int row = 0; row < loader.getLineCount() - 1; row++) {
-            // first row is a vector
+            // first line in the input file is a vector
+            // however first row should start with 0 instead of 1
+            // thus we need to shift lines by 1
             String line = loader.getLine(row + 1);
             for (int position = 0; position < line.length(); position++) {
                 Point c = new Point(position, row);
@@ -59,11 +71,23 @@ public class Board {
         }
     }
 
+    /**
+     * Extracts X value from the input vector
+     *
+     * @param literalVector vector from the input
+     * @return X of the vector
+     */
     private short getVectorX(String literalVector) {
         String v = literalVector.replace("(", "");
         return Short.valueOf(v.split(",")[0]);
     }
 
+    /**
+     * Extracts Y value from the input vector
+     *
+     * @param literalVector vector from the input
+     * @return Y of the vector
+     */
     private short getVectorY(String literalVector) {
         String v = literalVector.replace(")", "");
         return Short.valueOf(v.split(",")[1]);
@@ -73,25 +97,35 @@ public class Board {
         return !chambers.isEmpty();
     }
 
-    public Chamber getChamber(Point coords) {
+    private void validateBoard()
+            throws BoardNotLoadedException {
+        if (!isBoardLoaded())
+            throw new BoardNotLoadedException();
+    }
+
+    public Chamber getChamber(Point coords)
+            throws BoardNotLoadedException {
+        validateBoard();
         return chambers.get(coords);
     }
 
-    public void setChamberType(Point coords, Chamber type) {
-        chambers.put(coords, type);
-    }
-
-    public void setBallAt(Point position) {
+    public void setBallAt(Point position)
+            throws BoardNotLoadedException {
+        validateBoard();
         chambers.put(position, Chamber.BALL);
         currentBallPosition = position;
     }
 
-    public void setMarkAt(Point position) {
+    public void setMarkAt(Point position)
+            throws BoardNotLoadedException {
+        validateBoard();
         chambers.put(position, Chamber.MARK);
     }
 
-    public Point getBallPosition() {
-        return new Point(0, 0);
+    public Point getBallPosition()
+            throws BoardNotLoadedException {
+        validateBoard();
+        return currentBallPosition;
     }
 
     public void saveBoard() throws IOException {

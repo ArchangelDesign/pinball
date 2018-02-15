@@ -1,5 +1,7 @@
 package com.toreforge;
 
+import com.toreforge.exception.BoardLoaderException;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,11 +22,12 @@ class BoardLoader {
             lineNo++;
         }
         lineCount = lineNo;
+        reader.close();
     }
 
-    public String getLine(Integer line) throws Exception {
+        public String getLine(Integer line) throws BoardLoaderException {
         if (!lines.containsKey(line))
-            throw new Exception(String.format("Invalid line number %s", line));
+            throw new BoardLoaderException(String.format("Invalid line number %s", line));
         return lines.get(line);
     }
 
