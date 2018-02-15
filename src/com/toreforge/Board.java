@@ -2,7 +2,6 @@ package com.toreforge;
 
 import com.toreforge.exception.BoardLoaderException;
 import com.toreforge.exception.BoardNotLoadedException;
-import sun.jvm.hotspot.utilities.Assert;
 
 import java.awt.*;
 import java.io.IOException;
