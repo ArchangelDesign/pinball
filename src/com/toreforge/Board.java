@@ -3,6 +3,7 @@ package com.toreforge;
 import sun.jvm.hotspot.utilities.Assert;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class Board {
@@ -93,8 +94,8 @@ public class Board {
         return new Point(0, 0);
     }
 
-    public void saveBoard() {
-
+    public void saveBoard() throws IOException {
+        BoardWriter.saveBoard(boardSize, chambers);
     }
 
     public void bounce() {
