@@ -30,4 +30,24 @@ public enum Chamber {
             default: return EMPTY;
         }
     }
+
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case EMPTY: return " ";
+            case BALL: return "O";
+            case MARK: return ".";
+            case END: return "E";
+            case TOP_LEFT_BOUNCE: return "A";
+            case TOP_RIGHT_BOUNCE: return "^";
+            case VERTICAL_BARRIER: return "|";
+            case LEFT_ANGLE_BOUNCE: return "/";
+            case BOTTOM_LEFT_BOUNCE: return "U";
+            case HORIZONTAL_BARRIER: return "-";
+            case RIGHT_ANGLE_BOUNCE: return "\\";
+            case BOTTOM_RIGHT_BOUNCE: return "V";
+            default: return " ";
+        }
+    }
 }

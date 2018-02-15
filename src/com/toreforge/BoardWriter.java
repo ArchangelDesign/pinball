@@ -14,6 +14,12 @@ public class BoardWriter {
                 new BufferedWriter(
                         new FileWriter("output.txt")
                 );
+        for (int row = 0; row < size.y; row++) {
+            for (int column = 0; column < size.x; column++) {
+                writer.write(board.get(new Point(column, row)).toString());
+            }
+            writer.newLine();
+        }
         writer.close();
     }
 }
