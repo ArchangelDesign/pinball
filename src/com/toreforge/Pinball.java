@@ -14,7 +14,7 @@ import java.io.IOException;
  * license: GPL
  */
 
-public class Main {
+public class Pinball {
 
     public static void main(String[] args)
             throws IOException, BoardLoaderException, BoardNotLoadedException {
