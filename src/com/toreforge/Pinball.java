@@ -55,7 +55,11 @@ public class Pinball {
 	    // apply vector to position
         Point newPosition = Vector.applyVector(new Point(5, 2), Vector.downRight());
 
-	    // to save the board to the output
+        // put it to work
+        b.setMarkAt(b.getBallPosition());
+        b.setBallAt(Vector.applyVector(b.getBallPosition(), b.getCurrentVector()));
+
+        // to save the board to the output
 	    b.saveBoard();
     }
 }

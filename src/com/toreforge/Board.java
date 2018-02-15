@@ -142,4 +142,12 @@ public class Board {
     public int getBounceCount() {
         return bounceCount;
     }
+
+    public Vector getCurrentVector() {
+        return currentVector;
+    }
+
+    public void setCurrentVector(Vector currentVector) {
+        this.currentVector = currentVector;
+    }
 }
