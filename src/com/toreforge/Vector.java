@@ -87,4 +87,16 @@ public class Vector {
     public static Vector downLeft() {
         return new Vector(Short.valueOf("-1"), Short.valueOf("1"));
     }
+
+    /**
+     * This method takes into account the collision
+     * and calculates new vector to be applied to the ball
+     *
+     * @param input current ball vector
+     * @return vector adjusted based on the collision
+     */
+    public static Vector transformVector(Vector input, Chamber collision) {
+        // here is where the magic happens
+        return null;
+    }
 }

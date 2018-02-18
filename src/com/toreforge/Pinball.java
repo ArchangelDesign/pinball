@@ -25,10 +25,7 @@ public class Pinball {
 	    b.loadBoard();
 
 	    // to get current position of the ball
-	    Point bollPosition = b.getBallPosition();
-
-	    // to set new ball position
-	    b.setBallAt(new Point(1,1));
+	    Point ballPosition = b.getBallPosition();
 
 	    // to get the chamber type
 	    switch (b.getChamber(new Point(5, 1))) {
@@ -40,10 +37,21 @@ public class Pinball {
             case VERTICAL_BARRIER:
             case TOP_RIGHT_BOUNCE:
             case TOP_LEFT_BOUNCE:
+                b.setCurrentVector(
+                        Vector.transformVector(
+                                b.getCurrentVector(),
+                                b.getChamber(new Point(5, 1)
+                                )
+                        )
+                );
             case END:
+                // end the program
             case MARK:
+                // the ball has already been here
             case BALL:
+                // there is only one ball
             case EMPTY:
+                // leave the mark and continue the movement
         }
 
         // to set the ball in the position
